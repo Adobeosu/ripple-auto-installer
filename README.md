@@ -1,8 +1,8 @@
 # ripple-auto-installer
-Aoba's Ripple osu! server installer!
+Adobe's Ripple osu! server installer!
 
 # Note
-This Installer just install most things for server! If you want to use custom modify, You need to edit it yourself. and please fork this project if you use it! (THIS IS NOT DESIGNED FOR WINDOWS!)
+This Installer just install most things for a ripple server! If you want to use custom modify, You need to edit it yourself. and please fork this project if you use it! (THIS IS NOT DESIGNED FOR WINDOWS!)
 
 # What the heck is it?
 It's my Ripple auto installer because I'm lazy to write very very looooooong command to setup it. So I decided to make my own installer!
@@ -22,9 +22,8 @@ Make sure you set your DNS like this:
 * old.YOUR-DOMAIN
 
 # I need help!
-You ask for help via Discord DMs or through Github Issues.<br>
+You ask for help via Github Issues.<br>
 <br>
-@Aoba Suzukaze#9999 - Aoba (Hazuki-san)
 
 # Credits
 * <a href=https://github.com/ppy>peppy</a> - Thank you for the wonderful game and I'm sorry for your bancho.
