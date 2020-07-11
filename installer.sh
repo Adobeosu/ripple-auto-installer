@@ -94,7 +94,7 @@ cd ripple
 
 echo "Downloading Bancho server..."
 cd $MasterDir
-git clone https://zxq.co/ripple/pep.py
+git clone https://github.com/theosurealm/hanayo
 cd pep.py
 git submodule init && git submodule update
 python3.6 -m pip install -r requirements.txt
@@ -106,7 +106,7 @@ cd $MasterDir
 echo "Bancho Server setup is done!"
 
 echo "Setting up LETS server & oppai..."
-git clone https://zxq.co/ripple/lets
+git clone https://github.com/theosurealm/LETS
 cd lets
 python3.6 -m pip install -r requirements.txt
 echo "Downloading patches"
@@ -171,7 +171,7 @@ echo "NGINX server setup is done!"
 
 echo "Setting up database..."
 # Download SQL filder
-wget -O ripple.sql https://raw.githubusercontent.com/LordDamionDevil/ripple-installer/master/ripple_database.sql
+wget -O ripple.sql https://raw.githubusercontent.com/Adobeosu/ripple-auto-installer/master/ripple_database.sql
 mysql -u "$mysql_usr" -p"$mysql_psw" -e 'CREATE DATABASE ripple;'
 mysql -u "$mysql_usr" -p"$mysql_psw" ripple < ripple.sql
 echo "Database setup is done!"
@@ -179,7 +179,7 @@ echo "Database setup is done!"
 echo "Setting up hanayo..."
 mkdir hanayo
 cd hanayo
-go get -u zxq.co/ripple/hanayo
+go get -u github.com/theosurealm/hanayo
 mv /root/go/bin/hanayo ./
 mv /root/go/src/zxq.co/ripple/hanayo/data ./data
 mv /root/go/src/zxq.co/ripple/hanayo/scripts ./scripts
@@ -209,16 +209,7 @@ cd $MasterDir
 echo "API setup is done!"
 
 echo "Setting up avatar server..."
-go get -u zxq.co/Sunpy/avatar-server-go
-mkdir avatar-server
-mkdir avatar-server/avatars
-mv /root/go/bin/avatar-server-go ./avatar-server/avatar-server
-cd $MasterDir/avatar-server/avatars
-# DEFAULT AVATAR
-wget -O 0.png https://raw.githubusercontent.com/osuthailand/avatar-server/master/avatars/-1.png
-# AC AVATAR
-wget -O 999.png https://raw.githubusercontent.com/osuthailand/avatar-server/master/avatars/0.png
-cd $MasterDir
+git clone https://github.com/theosurealm/avatar-server
 echo "Avatar Server setup is done!"
 
 echo "Setting up backend..."
