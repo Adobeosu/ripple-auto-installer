@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 # THIS SCRIPT IS ORIGINALLY FROM SUNPY #
-printf "This script has to run in sudo mode.\nIf this isn't the case CTRL+C now.\nAlso please don't install this in /root/ but whatever I installed it but I don't really care anyway.\nThis is also meant to be used on a fresh Ubuntu 16.04 install but you can use other OS anyway because this creates a new database etc.\nThis installer is simplistic as its just something I put together so I could easily recreate the server once things change or when I move server around for testing etc.\n\t- Aoba\n"
+printf "Advanced users only. I guess."
 
 server-install () {
 
@@ -41,9 +41,6 @@ printf "\n\n..:: LETS SERVER::.."
 printf "\nosuapi-apikey [YOUR_OSU_API_KEY_HERE]: "
 read lets_osuapikey
 lets_osuapikey=${lets_osuapikey:=YOUR_OSU_API_KEY_HERE}
-printf "\nPP Cap [700]: "
-read pp_cap
-pp_cap=${pp_cap:=700}
 
 printf "\n\n..:: FRONTEND ::.."
 printf "\nPort [6969]: "
@@ -54,9 +51,9 @@ read hanayo_apisecret
 hanayo_apisecret=${hanayo_apisecret:=Potato}
 
 printf "\n\n..:: DATABASE ::.."
-printf "\nUsername [root]: "
+printf "\nUsername [aoba]: "
 read mysql_usr
-mysql_usr=${mysql_usr:=root}
+mysql_usr=${mysql_usr:=aoba}
 printf "\nPassword [meme]: "
 read mysql_psw
 mysql_psw=${mysql_psw:=meme}
@@ -74,7 +71,7 @@ apt-get update
 sudo apt-get install build-essential autoconf libtool pkg-config python-opengl python-imaging python-pyrex python-pyside.qtopengl idle-python2.7 qt4-dev-tools qt4-designer libqtgui4 libqtcore4 libqt4-xml libqt4-test libqt4-script libqt4-network libqt4-dbus python-qt4 python-qt4-gl libgle3 python-dev -y	 
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt-get update
-apt-get install python3 python3-dev python3.6 python3.6-dev -y
+apt-get install python3 python3-dev -y
 add-apt-repository ppa:ondrej/php -y
 add-apt-repository ppa:longsleep/golang-backports -y
 apt-get update
@@ -94,51 +91,35 @@ cd ripple
 
 echo "Downloading Bancho server..."
 cd $MasterDir
-git clone https://github.com/theosurealm/hanayo
+git clone https://github.com/osuthailand/pep.py
 cd pep.py
 git submodule init && git submodule update
 python3.6 -m pip install -r requirements.txt
 python3.6 setup.py build_ext --inplace
 python3.6 pep.py
-sed -i 's#root#'$mysql_usr'#g; s#changeme#'$peppy_cikey'#g'; s#http://.../letsapi#'http://127.0.0.1:5002/letsapi'#g; s#http://cheesegu.ll/api#'https://cg.mxr.lol/api'#g' config.ini
+sed -i 's#root#'$mysql_usr'#g; s#changeme#'$peppy_cikey'#g'; s#http://.../letsapi#'http://127.0.0.1:5002/letsapi'#g; s#http://cheesegu.ll/api#'https://storage.ainu.pw/api'#g' config.ini
 sed -E -i -e 'H;1h;$!d;x' config.ini -e 's#password = #password = '$mysql_psw'#'
 cd $MasterDir
 echo "Bancho Server setup is done!"
 
 echo "Setting up LETS server & oppai..."
-git clone https://github.com/theosurealm/LETS
+git clone https://github.com/osuthailand/lets
 cd lets
 python3.6 -m pip install -r requirements.txt
+git submodule init && git submodule update
 echo "Downloading patches"
-cd pp
-rm -rf oppai-ng/
-git clone https://github.com/Francesco149/oppai-ng
-cd oppai-ng
-./build
-cd ..
-rm -rf catch_the_pp/
-git clone https://github.com/osuripple/catch-the-pp
-mv catch-the-pp/ catch_the_pp/
-rm -rf __init__.py
-wget -O __init__.py https://pastebin.com/raw/gKaPU6C6
-wget -O wifipiano2.py https://pastebin.com/raw/ZraV7iU9
-cd ..
-#IT WAS A STUPID IDEA TO COPY COMMON FROM PEP.PY
-rm -rf common
-git clone https://zxq.co/ripple/ripple-python-common
-mv ripple-python-common/ common/
-cd $MasterDir/lets/handlers
-sed -i 's#700#'$pp_cap'#g' submitModularHandler.pyx
+cd ./pp/oppai-ng/ && chmod +x ./build && ./build && cd ./../../
+cd ./pp/oppai-ng/ && chmod +x ./build && ./build && cd ./../../
+# difficulty_ctb fix
+cd $MasterDir/lets/objects
+sed -i 's#dataCtb["difficultyrating"]#'dataCtb["diff_aim"]'#g' beatmap.pyx
 cd $MasterDir/lets
-git clone https://github.com/osufx/secret
 cd secret
 git submodule init && git submodule update
 cd ..
 python3.6 setup.py build_ext --inplace
-cd helpers
-rm -rf config.py
-wget -O config.py https://pastebin.com/raw/E0zUvLuU
-sed -i 's#root#'$mysql_usr'#g; s#mysqlpsw#'$mysql_psw'#g; s#DOMAIN#'$domain'#g; s#changeme#'$peppy_cikey'#g; s#YOUR_OSU_API_KEY_HERE#'$lets_osuapikey'#g; s#http://cheesegu.ll/api#'https://cg.mxr.lol/api'#g' config.py
+cd secret
+git submodule init && git submodule update
 cd $MasterDir
 echo "LETS Server setup is done!"
 
@@ -153,13 +134,13 @@ systemctl restart php7.0-fpm
 pkill -f nginx
 cd /etc/nginx/
 rm -rf nginx.conf
-wget -O nginx.conf https://pastebin.com/raw/sb44Ae1q 
+wget -O nginx.conf https://pastebin.com/raw/9aduuq4e 
 sed -i 's#include /root/ripple/nginx/*.conf\*#include '$MasterDir'/nginx/*.conf#' /etc/nginx/nginx.conf
 cd $MasterDir
 cd nginx
-wget -O nginx.conf https://pastebin.com/raw/B4hWMmZn
+wget -O nginx.conf https://pastebin.com/raw/iTbFALXS
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' nginx.conf
-wget -O old-frontend.conf https://pastebin.com/raw/bMXE2m6n
+wget -O old-frontend.conf https://pastebin.com/raw/mRPFLYFE
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' old-frontend.conf
 echo "Downloading certificate..."
 wget -O cert.pem https://raw.githubusercontent.com/osuthailand/ainu-certificate/master/cert.pem
@@ -170,8 +151,8 @@ cd $MasterDir
 echo "NGINX server setup is done!"
 
 echo "Setting up database..."
-# Download SQL filder
-wget -O ripple.sql https://raw.githubusercontent.com/Adobeosu/ripple-auto-installer/master/ripple_database.sql
+# Download SQL folder
+wget -O ripple.sql https://raw.githubusercontent.com/Kanaze-chan/ripple-auto-installer/master/ripple_database.sql
 mysql -u "$mysql_usr" -p"$mysql_psw" -e 'CREATE DATABASE ripple;'
 mysql -u "$mysql_usr" -p"$mysql_psw" ripple < ripple.sql
 echo "Database setup is done!"
@@ -179,13 +160,14 @@ echo "Database setup is done!"
 echo "Setting up hanayo..."
 mkdir hanayo
 cd hanayo
-go get -u github.com/theosurealm/hanayo
+go get -u github.com/osuthailand/hanayo
+
 mv /root/go/bin/hanayo ./
-mv /root/go/src/zxq.co/ripple/hanayo/data ./data
-mv /root/go/src/zxq.co/ripple/hanayo/scripts ./scripts
-mv /root/go/src/zxq.co/ripple/hanayo/static ./static
-mv /root/go/src/zxq.co/ripple/hanayo/templates ./templates
-mv /root/go/src/zxq.co/ripple/hanayo/website-docs ./website-docs
+mv /root/go/src/github.com/osuthailand/hanayo/data ./data
+mv /root/go/src/github.com/osuthailand/hanayo/scripts ./scripts
+mv /root/go/src/github.com/osuthailand/hanayo/static ./static
+mv /root/go/src/github.com/osuthailand/hanayo/templates ./templates
+mv /root/go/src/github.com/osuthailand/hanayo/website-docs ./website-docs
 sed -i 's#ripple.moe#'$domain'#' templates/navbar.html
 ./hanayo
 sed -i 's#ListenTo=#ListenTo=127.0.0.1:'$hanayo_port'#g; s#AvatarURL=#AvatarURL=https://a.'$domain'#g; s#BaseURL=#BaseURL=https://'$domain'#g; s#APISecret=#APISecret='$hanayo_apisecret'#g; s#BanchoAPI=#BanchoAPI=https://c.'$domain'#g; s#MainRippleFolder=#MainRippleFolder='$MasterDir'#g; s#AvatarFolder=#AvatarFolder='$MasterDir'/nginx/avatar-server/avatars#g; s#RedisEnable=false#RedisEnable=true#g' hanayo.conf
@@ -197,30 +179,27 @@ echo "Hanayo setup is done!"
 echo "Setting up API..."
 mkdir rippleapi
 cd rippleapi
-go get -u zxq.co/ripple/rippleapi
-#Ugly fix?
-rm -rf /root/go/src/zxq.co/ripple
-mv /root/go/src/zxq.co/rippleapi /root/go/src/zxq.co/ripple
-go build zxq.co/ripple/rippleapi
-mv /root/go/bin/rippleapi ./
-./rippleapi
+go get -u github.com/osuthailand/api
+mv /root/go/bin/api ./
+./api
 sed -i 's#root@#'$mysql_usr':'$mysql_psw'@#g; s#Potato#'$hanayo_apisecret'#g; s#OsuAPIKey=#OsuAPIKey='$peppy_cikey'#g' api.conf
 cd $MasterDir
 echo "API setup is done!"
 
 echo "Setting up avatar server..."
-git clone https://github.com/theosurealm/avatar-server
+git clone https://github.com/osuthailand/avatar-server
+python3.6 -m pip install Flask
 echo "Avatar Server setup is done!"
 
 echo "Setting up backend..."
 cd /var/www/
-git clone https://zxq.co/ripple/old-frontend.git
+git clone https://github.com/osuthailand/old-frontend
 mv old-frontend osu.ppy.sh
 cd osu.ppy.sh
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 cd inc
 cp config.sample.php config.php
-sed -i 's#root#'$mysql_usr'#g; s#meme#'$mysql_psw'#g; s#allora#ripple#g; s#ripple.moe#'$domain'#g' config.php
+sed -i 's#root#'$mysql_usr'#g; s#meme#'$mysql_psw'#g; s#allora#ripple#g; s#"redis"#"localhost"#g; s#ripple.moe#'$domain'#g' config.php
 cd ..
 composer install
 rm -rf secret
@@ -240,7 +219,7 @@ git clone https://github.com/Neilpang/acme.sh
 apt-get install socat -y
 cd acme.sh/
 ./acme.sh --install
-./acme.sh --issue --standalone -d $domain -d c.$domain -d i.$domain -d a.$domain -d old.$domain
+./acme.sh --issue --standalone -d $domain -d c.$domain -d i.$domain -d a.$domain -d s.$domain -d old.$domain
 echo "Certificate is ready!"
 
 echo "Changing folder and files permissions"
@@ -252,28 +231,11 @@ DIFF=$(( $END - $START ))
 nginx
 echo "Setup is done... but I guess it's still indevelopment I need to check something but It took $DIFF seconds. To setup the server!"
 echo "also you can access PhpMyAdmin here... http://old.$domain/phpmyadmin"
-fuser 80/tcp
-service nginx start
 
 printf "\n\nDo you like our installer? [y/n]: "
 read q
 if [ "$q" = "y" ]; then
 	printf "\n\nWell... It just a fake message but thanks! You can start the server now.\n\nAlright! See you later in the next server!\n\n"
-fi
-
-printf "\n\nShould you like to create an tmux autorun? This will install tmux [y/n]: "
-read tm
-if [ "$tm" = "y" ]; then
-	apt-get install tmux -y
-	echo '#!/bin/bash' > tmux-start.sh
-	echo "tmux new-session -d -s avatar-server 'tmux set remain-on-exit on && cd $MasterDir/avatar-server && ./avatar-server'" >> tmux-start.sh
-	echo "tmux new-session -d -s lets 'tmux set remain-on-exit on && cd $MasterDir/lets && python3.6 lets.py'" >> tmux-start.sh
-	echo "tmux new-session -d -s bancho 'tmux set remain-on-exit on && cd $MasterDir/pep.py && python3.6 pep.py'" >> tmux-start.sh
-	echo "tmux new-session -d -s api 'tmux set remain-on-exit on && cd $MasterDir/rippleapi && ./rippleapi'" >> tmux-start.sh
-	echo "tmux new-session -d -s hanayo 'tmux set remain-on-exit on && cd $MasterDir/hanayo && ./hanayo'" >> tmux-start.sh
-	echo "echo TMUX window has been created. If they die restart them by calling ':respawn-window'" >> tmux-start.sh
-	chmod 777 tmux-start.sh
-	printf "\n\nAlright! You can start the server by running ./tmux-start.sh\n\nSee you later in the next server.\n\n"
 fi
 
 }
@@ -282,7 +244,6 @@ echo ""
 echo "IMPORTANT: Ripple is licensed under the GNU AGPL license. This means, if your server is public, that ANY modification made to the original ripple code MUST be publically available."
 echo "Also, to run an osu! private server, as well as any sort of server, you need to have minimum knowledge of command line, and programming."
 echo "Running this script assumes you know how to use Linux in command line, secure and manage a server, and that you know how to fix errors, as they might happen while running that code."
-echo "Make sure to run this in root directory or else you will have to edit /etc/nginx/nginx.conf to point to your ripple location"
 echo "Do you agree? (y/n)"
 read answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then
