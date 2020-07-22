@@ -1,15 +1,14 @@
 #!/bin/bash
 clear
-# THIS SCRIPT IS ORIGINALLY FROM SUNPY #
 printf "Advanced users only. I guess."
 
 server-install () {
 
 valid_domain=0
 
-printf "\nInstall directory "[$(pwd)"/ripple"]": "
+printf "\nInstall directory "[$(pwd)"/realm"]": "
 read MasterDir
-MasterDir=${MasterDir:=$(pwd)"/ripple"}
+MasterDir=${MasterDir:=$(pwd)"/realm"}
 
 printf "\n\n..:: NGINX CONFIGS ::.."
 while [ $valid_domain -eq 0 ]
@@ -51,9 +50,9 @@ read hanayo_apisecret
 hanayo_apisecret=${hanayo_apisecret:=Potato}
 
 printf "\n\n..:: DATABASE ::.."
-printf "\nUsername [aoba]: "
+printf "\nUsername [adobe]: "
 read mysql_usr
-mysql_usr=${mysql_usr:=aoba}
+mysql_usr=${mysql_usr:=adobe}
 printf "\nPassword [meme]: "
 read mysql_psw
 mysql_psw=${mysql_psw:=meme}
@@ -86,12 +85,12 @@ apt-get install composer -y
 apt-get install zip unzip php7.0-zip -y
 
 echo "Done installing dependencies!"
-mkdir ripple
-cd ripple
+mkdir realm
+cd realm
 
 echo "Downloading Bancho server..."
 cd $MasterDir
-git clone https://github.com/osuthailand/pep.py
+git clone https://github.com/theosurealm/pep.py
 cd pep.py
 git submodule init && git submodule update
 python3.6 -m pip install -r requirements.txt
@@ -103,13 +102,25 @@ cd $MasterDir
 echo "Bancho Server setup is done!"
 
 echo "Setting up LETS server & oppai..."
-git clone https://github.com/osuthailand/lets
+git clone https://github.com/theosurealm/LETS
 cd lets
 python3.6 -m pip install -r requirements.txt
 git submodule init && git submodule update
 echo "Downloading patches"
-cd ./pp/oppai-ng/ && chmod +x ./build && ./build && cd ./../../
-cd ./pp/oppai-ng/ && chmod +x ./build && ./build && cd ./../../
+cd pp
+rm -rf oppai-ng
+rm -rf oppai-rx
+git clone https://github.com/Adobeosu/oppai-ng
+git clone https://github.com/Adobeosu/oppai-rx
+cd oppai-ng
+chmod +x ./build
+./build
+cd ..
+cd oppai-rx
+chmod +x ./build
+./build
+cd ..
+cd ..
 # difficulty_ctb fix
 cd $MasterDir/lets/objects
 sed -i 's#dataCtb["difficultyrating"]#'dataCtb["diff_aim"]'#g' beatmap.pyx
@@ -134,17 +145,17 @@ systemctl restart php7.0-fpm
 pkill -f nginx
 cd /etc/nginx/
 rm -rf nginx.conf
-wget -O nginx.conf https://pastebin.com/raw/9aduuq4e 
-sed -i 's#include /root/ripple/nginx/*.conf\*#include '$MasterDir'/nginx/*.conf#' /etc/nginx/nginx.conf
+wget -O nginx.conf https://pastebin.com/raw/GYrNM3gV
+sed -i 's#include /root/realm/nginx/*.conf\*#include '$MasterDir'/nginx/*.conf#' /etc/nginx/nginx.conf
 cd $MasterDir
 cd nginx
-wget -O nginx.conf https://pastebin.com/raw/iTbFALXS
+wget -O nginx.conf https://pastebin.com/raw/JebgsGpB
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' nginx.conf
-wget -O old-frontend.conf https://pastebin.com/raw/mRPFLYFE
+wget -O old-frontend.conf https://pastebin.com/raw/PhLwcyh2
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' old-frontend.conf
 echo "Downloading certificate..."
-wget -O cert.pem https://raw.githubusercontent.com/osuthailand/ainu-certificate/master/cert.pem
-wget -O key.pem https://raw.githubusercontent.com/osuthailand/ainu-certificate/master/key.key
+wget -O cert.pem https://raw.githubusercontent.com/theosurealm/Realm-Certificate/master/cert.pem
+wget -O key.pem https://raw.githubusercontent.com/theosurealm/Realm-Certificate/master/key.pem
 echo "Certificate downloaded!"
 nginx
 cd $MasterDir
@@ -152,54 +163,56 @@ echo "NGINX server setup is done!"
 
 echo "Setting up database..."
 # Download SQL folder
-wget -O ripple.sql https://raw.githubusercontent.com/Kanaze-chan/ripple-auto-installer/master/ripple_database.sql
-mysql -u "$mysql_usr" -p"$mysql_psw" -e 'CREATE DATABASE ripple;'
-mysql -u "$mysql_usr" -p"$mysql_psw" ripple < ripple.sql
+wget -O ripple.sql https://raw.githubusercontent.com/Adobeosu/realm-default-db/master/ripple.sql
+mysql -u "$mysql_usr" -p"$mysql_psw" -e 'CREATE DATABASE realm;'
+mysql -u "$mysql_usr" -p"$mysql_psw" realm < ripple.sql
 echo "Database setup is done!"
 
 echo "Setting up hanayo..."
 mkdir hanayo
 cd hanayo
 go get -u github.com/osuthailand/hanayo
-
-mv /root/go/bin/hanayo ./
-mv /root/go/src/github.com/osuthailand/hanayo/data ./data
-mv /root/go/src/github.com/osuthailand/hanayo/scripts ./scripts
-mv /root/go/src/github.com/osuthailand/hanayo/static ./static
-mv /root/go/src/github.com/osuthailand/hanayo/templates ./templates
-mv /root/go/src/github.com/osuthailand/hanayo/website-docs ./website-docs
+cd ..
+rm -rf hanayo
+git clone https://github.com/theosurealm/hanayo
+mv hanayo /root/go/src
+cd /root/go/src/hanayo
+dep init
+dep ensure
+go build
+cd ..
+mv hanayo /root/realm
+cd /root/realm/hanayo
 sed -i 's#ripple.moe#'$domain'#' templates/navbar.html
 ./hanayo
 sed -i 's#ListenTo=#ListenTo=127.0.0.1:'$hanayo_port'#g; s#AvatarURL=#AvatarURL=https://a.'$domain'#g; s#BaseURL=#BaseURL=https://'$domain'#g; s#APISecret=#APISecret='$hanayo_apisecret'#g; s#BanchoAPI=#BanchoAPI=https://c.'$domain'#g; s#MainRippleFolder=#MainRippleFolder='$MasterDir'#g; s#AvatarFolder=#AvatarFolder='$MasterDir'/nginx/avatar-server/avatars#g; s#RedisEnable=false#RedisEnable=true#g' hanayo.conf
-sed -E -i -e 'H;1h;$!d;x' hanayo.conf -e 's#DSN=#DSN='$mysql_usr':'$mysql_psw'@/ripple#'
+sed -E -i -e 'H;1h;$!d;x' hanayo.conf -e 's#DSN=#DSN='$mysql_usr':'$mysql_psw'@/realm#'
 sed -E -i -e 'H;1h;$!d;x' hanayo.conf -e 's#API=#API=http://localhost:40001/api/v1/#'
 cd $MasterDir
 echo "Hanayo setup is done!"
 
 echo "Setting up API..."
-mkdir rippleapi
-cd rippleapi
-go get -u github.com/osuthailand/api
-mv /root/go/bin/api ./
+git clone https://github.com/Adobeosu/api
+cd api
 ./api
 sed -i 's#root@#'$mysql_usr':'$mysql_psw'@#g; s#Potato#'$hanayo_apisecret'#g; s#OsuAPIKey=#OsuAPIKey='$peppy_cikey'#g' api.conf
 cd $MasterDir
 echo "API setup is done!"
 
 echo "Setting up avatar server..."
-git clone https://github.com/osuthailand/avatar-server
+git clone https://github.com/theosurealm/avatar-server
 python3.6 -m pip install Flask
 echo "Avatar Server setup is done!"
 
 echo "Setting up backend..."
-cd /var/www/
+cd /root/relam
 git clone https://github.com/osuthailand/old-frontend
-mv old-frontend osu.ppy.sh
-cd osu.ppy.sh
+mv old-frontend TRAP
+cd TRAP
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 cd inc
 cp config.sample.php config.php
-sed -i 's#root#'$mysql_usr'#g; s#meme#'$mysql_psw'#g; s#allora#ripple#g; s#"redis"#"localhost"#g; s#ripple.moe#'$domain'#g' config.php
+sed -i 's#root#'$mysql_usr'#g; s#meme#'$mysql_psw'#g; s#allora#realm#g; s#"redis"#"localhost"#g; s#ripple.moe#'$domain'#g' config.php
 cd ..
 composer install
 rm -rf secret
@@ -209,7 +222,7 @@ echo "Backend server is done!"
 
 echo "Setting up PhpMyAdmin..."
 apt-get install phpmyadmin -y
-cd /var/www/osu.ppy.sh
+cd /root/realm/TRAP
 ln -s /usr/share/phpmyadmin phpmyadmin
 echo "PhpMyAdmin setup is done!"
 
@@ -223,7 +236,7 @@ cd acme.sh/
 echo "Certificate is ready!"
 
 echo "Changing folder and files permissions"
-chmod -R 777 ../ripple
+chmod +x ../realm
 
 END=$(date +%s)
 DIFF=$(( $END - $START ))
