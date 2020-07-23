@@ -2,7 +2,7 @@
 Adobe's The Realm osu! server installer based off of ripple's code!
 
 # Note
-This Installer just install most things for a ripple server! If you want to use custom modify, You need to edit it yourself. and please fork this project if you use it! (THIS IS NOT DESIGNED FOR WINDOWS!)
+This Installer just install most things for a ripple server! If you want to use a custom modification, You need to edit it yourself. and please fork this project if you use it! (THIS IS NOT DESIGNED FOR WINDOWS!)
 
 # What the heck is it?
 It's my Ripple auto installer because I'm lazy to write very very looooooong command to setup it. So I decided to make my own installer!
