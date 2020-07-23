@@ -413,14 +413,6 @@ CREATE TABLE `beatmaps_rating` (
   `rating` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `beatmaps_rating`
---
-
-INSERT INTO `beatmaps_rating` (`id`, `user_id`, `beatmap_md5`, `rating`) VALUES
-(1, 1003, 'f4fab5732e27c204de4563fefbf994ea', 10);
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `clans`
