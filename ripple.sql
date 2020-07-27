@@ -413,6 +413,7 @@ CREATE TABLE `beatmaps_rating` (
   `rating` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `clans`
@@ -985,7 +986,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `osuver`, `username`, `username_safe`, `ban_datetime`, `password_md5`, `salt`, `email`, `register_datetime`, `rank`, `allowed`, `latest_activity`, `silence_end`, `silence_reason`, `password_version`, `privileges`, `donor_expire`, `flags`, `achievements_version`, `achievements_0`, `achievements_1`, `notes`, `last_session`, `always_online`) VALUES
-(999, NULL, 'Realm Watcher', 'realm_watcher', '0', '$2a$10$pBgU874luaYxgm0OAplLi.mxiNMIPBHGYkpfh2HZNtQml68VsoyCS', '5e/AceVLS7jJtxTJA1U6rmVqrWREYg==', 'fo@kab.ot', 1566228790, 4, 1, 1569775752, 0, '', 1, 3145727, 2147483647, 0, 0, 1, 1, '', 'check', 1);
+(999, NULL, 'Realm Watcher', 'realm_watcher', '0', '$2y$12$n.Y6yjZ75ScxBsY9Kw/zO.kTl1OnxJlcdB2xklgqcZVbIXnL/UhiS', '5e/AceVLS7jJtxTJA1U6rmVqrWREYg==', 'fo@kab.ot', 1566228790, 4, 1, 1569775752, 0, '', 1, 3145727, 2147483647, 0, 0, 1, 1, '', 'check', 1);
 
 -- --------------------------------------------------------
 
