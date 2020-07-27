@@ -163,7 +163,7 @@ echo "NGINX server setup is done!"
 
 echo "Setting up database..."
 # Download SQL folder
-wget -O ripple.sql https://raw.githubusercontent.com/Adobeosu/realm-default-db/master/ripple.sql
+wget -O ripple.sql https://raw.githubusercontent.com/Adobeosu/ripple-auto-installer/master/ripple.sql
 mysql -u "$mysql_usr" -p"$mysql_psw" -e 'CREATE DATABASE realm;'
 mysql -u "$mysql_usr" -p"$mysql_psw" realm < ripple.sql
 echo "Database setup is done!"
