@@ -1,4 +1,3 @@
-#!/bin/bash
 clear
 printf "Advanced users only. I guess."
 
