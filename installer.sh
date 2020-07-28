@@ -116,7 +116,6 @@ chmod +x ./build
 ./build
 cd ..
 cd ..
-# difficulty_ctb fix
 cd $MasterDir/lets/objects
 sed -i 's#dataCtb["difficultyrating"]#'dataCtb["diff_aim"]'#g' beatmap.pyx
 cd $MasterDir/lets
