@@ -146,7 +146,7 @@ cd $MasterDir
 cd nginx
 wget -O nginx.conf https://pastebin.com/raw/yEwFiz7m
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' nginx.conf
-wget -O old-frontend.conf https://pastebin.com/raw/X7TMK8qV
+wget -O old-frontend.conf https://pastebin.com/raw/XTQvpWZM
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' old-frontend.conf
 echo "Downloading certificate..."
 wget -O cert.pem https://raw.githubusercontent.com/theosurealm/Realm-Certificate/master/cert.pem
@@ -199,10 +199,10 @@ python3.6 -m pip install Flask
 echo "Avatar Server setup is done!"
 
 echo "Setting up backend..."
-cd /root/relam
+cd /var/www
 git clone https://github.com/osuthailand/old-frontend
-mv old-frontend TRAP
-cd TRAP
+mv old-frontend osu.ppy.sh
+cd osu.ppy.sh
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 cd inc
 cp config.sample.php config.php
@@ -216,7 +216,7 @@ echo "Backend server is done!"
 
 echo "Setting up PhpMyAdmin..."
 apt-get install phpmyadmin -y
-cd /root/realm/TRAP
+cd /var/www/osu.ppy.sh
 ln -s /usr/share/phpmyadmin phpmyadmin
 echo "PhpMyAdmin setup is done!"
 
