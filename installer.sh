@@ -73,6 +73,7 @@ apt install git curl python3-pip python3-mysqldb -y
 apt-get install python-dev libmysqlclient-dev nginx software-properties-common libssl-dev mysql-server -y
 pip3 install --upgrade pip
 pip3 install flask
+apt install go-dep
 
 apt-get install php7.0 php7.0-mbstring php7.0-mcrypt php7.0-fpm php7.0-curl php7.0-mysql golang-go -y
 
@@ -102,7 +103,7 @@ cd lets
 python3.6 -m pip install -r requirements.txt
 git submodule init && git submodule update
 echo "Downloading patches"
-cd pp
+cd /root/realm/LETS/pp
 rm -rf oppai-ng
 rm -rf oppai-rx
 git clone https://github.com/Adobeosu/oppai-ng
