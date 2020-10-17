@@ -60,7 +60,9 @@ printf "\n\nAlright! Let's see what I can do here...\n\n"
 
 START=$(date +%s)
 
-echo "Installing dependencies..."
+echo -e "\e[1;36mInstalling dependencies..."
+echo -e "\e[\033[0m"
+sleep 1
 apt-get update
 sudo apt-get install build-essential autoconf libtool pkg-config python-opengl python-imaging python-pyrex python-pyside.qtopengl idle-python2.7 qt4-dev-tools qt4-designer libqtgui4 libqtcore4 libqt4-xml libqt4-test libqt4-script libqt4-network libqt4-dbus python-qt4 python-qt4-gl libgle3 python-dev -y	 
 sudo add-apt-repository ppa:deadsnakes/ppa -y
@@ -80,12 +82,15 @@ apt-get install php7.0 php7.0-mbstring php7.0-mcrypt php7.0-fpm php7.0-curl php7
 apt-get install composer -y
 apt-get install zip unzip php7.0-zip -y
 
-echo "Done installing dependencies!"
+echo -e "\e[1;36mDone installing dependencies!"
+echo -e "\e[\033[0m"
+sleep 1
 mkdir realm
-cd realm
 
-echo "Downloading Bancho server..."
-cd $MasterDir
+echo -e "\e[1;36mDownloading Bancho server..."
+echo -e "\e[\033[0m"
+sleep 1
+cd /root/realm/
 git clone https://github.com/theosurealm/pep.py
 cd pep.py
 git submodule init && git submodule update
@@ -94,15 +99,19 @@ python3.6 setup.py build_ext --inplace
 python3.6 pep.py
 sed -i 's#root#'$mysql_usr'#g; s#changeme#'$peppy_cikey'#g'; s#http://.../letsapi#'http://127.0.0.1:5002/letsapi'#g; s#http://cheesegu.ll/api#'https://storage.ainu.pw/api'#g' config.ini
 sed -E -i -e 'H;1h;$!d;x' config.ini -e 's#password = #password = '$mysql_psw'#'
-cd $MasterDir
+cd /root/realm/
 echo "Bancho Server setup is done!"
+sleep 1
 
-echo "Setting up LETS server & oppai..."
+echo -e "\e[1;36mSetting up LETS..."
+echo -e "\e[\033[0m"
+sleep 1
 git clone https://github.com/theosurealm/LETS
-cd lets
+cd LETS
 python3.6 -m pip install -r requirements.txt
 git submodule init && git submodule update
-echo "Downloading patches"
+echo -e "\e[1;36mDownloading Patches"
+echo -e "\e[\033[0m"
 cd /root/realm/LETS/pp
 rm -rf oppai-ng
 rm -rf oppai-rx
@@ -117,23 +126,31 @@ chmod +x ./build
 ./build
 cd ..
 cd ..
-cd $MasterDir/lets/objects
+cd /root/realm/LETS/objects
 sed -i 's#dataCtb["difficultyrating"]#'dataCtb["diff_aim"]'#g' beatmap.pyx
-cd $MasterDir/lets
+cd /root/realm/LETS
 cd secret
 git submodule init && git submodule update
 cd ..
 python3.6 setup.py build_ext --inplace
 cd secret
 git submodule init && git submodule update
-cd $MasterDir
-echo "LETS Server setup is done!"
+cd /root/realm
+echo -e "\e[1;36mLETS setup is done!"
+echo -e "\e[\033[0m"
+sleep 1
 
-echo "Installing Redis..."
+echo -e "\e[1;36mInstalling Redis..."
+echo -e "\e[\033[0m"
+sleep 1
 apt-get install redis-server -y
-echo "REDIS Server setup is done!"
+echo -e "\e[1;36mRedis Setup is finised!"
+echo -e "\e[\033[0m"
+sleep 1
 
-echo "Downloading nginx config..."
+echo -e "\e[1;36mDownloading configs for nginx..."
+echo -e "\e[\033[0m"
+sleep 1
 mkdir nginx
 cd nginx
 systemctl restart php7.0-fpm
@@ -148,29 +165,38 @@ wget -O nginx.conf https://pastebin.com/raw/yEwFiz7m
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' nginx.conf
 wget -O old-frontend.conf https://pastebin.com/raw/XTQvpWZM
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' old-frontend.conf
-echo "Downloading certificate..."
-wget -O cert.pem https://raw.githubusercontent.com/theosurealm/Realm-Certificate/master/cert.pem
-wget -O key.pem https://raw.githubusercontent.com/theosurealm/Realm-Certificate/master/key.pem
-echo "Certificate downloaded!"
+echo -e "\e[1;36mDownloading Certificate..."
+echo -e "\e[\033[0m"
+wget -O cert.pem https://raw.githubusercontent.com/osuthailand/ainu-certificate/master/cert.pem
+wget -O key.pem https://raw.githubusercontent.com/osuthailand/ainu-certificate/master/key.key
+echo -e "\e[1;36mCertificate Downloaded!"
+echo -e "\e[\033[0m"
 nginx
-cd $MasterDir
-echo "NGINX server setup is done!"
+cd /root/realm/
+echo -e "\e[1;36mnginx is fully setup and ready to go!"
+echo -e "\e[\033[0m"
+sleep 1
 
-echo "Setting up database..."
+echo -e "\e[1;36mSetting up database"
+echo -e "\e[\033[0m"
+sleep 1
 wget -O ripple.sql https://raw.githubusercontent.com/Adobeosu/ripple-auto-installer/master/ripple.sql
 mysql -u "$mysql_usr" -p"$mysql_psw" -e 'CREATE DATABASE realm;'
 mysql -u "$mysql_usr" -p"$mysql_psw" realm < ripple.sql
-echo "Database setup is done!"
+echo -e "\e[1;36mDatabase is now set up!"
+echo -e "\e[\033[0m"
 
-echo "Setting up hanayo..."
-mkdir hanayo
-cd hanayo
+echo -e "\e[1;36mSetting up hanayo..."
+echo -e "\e[\033[0m"
+sleep 1
 go get -u github.com/osuthailand/hanayo
-cd ..
 rm -rf hanayo
+cd /root/go/src/osuthailand
+rm -rf hanayo
+cd /root/realm/
 git clone https://github.com/theosurealm/hanayo
-mv hanayo /root/go/src
-cd /root/go/src/hanayo
+mv hanayo /root/go/src/osuthailand
+cd /root/go/src/osuthailand/hanayo
 dep init
 dep ensure
 go build
@@ -182,23 +208,36 @@ sed -i 's#ripple.moe#'$domain'#' templates/navbar.html
 sed -i 's#ListenTo=#ListenTo=127.0.0.1:'$hanayo_port'#g; s#AvatarURL=#AvatarURL=https://a.'$domain'#g; s#BaseURL=#BaseURL=https://'$domain'#g; s#APISecret=#APISecret='$hanayo_apisecret'#g; s#BanchoAPI=#BanchoAPI=https://c.'$domain'#g; s#MainRippleFolder=#MainRippleFolder='$MasterDir'#g; s#AvatarFolder=#AvatarFolder='$MasterDir'/nginx/avatar-server/avatars#g; s#RedisEnable=false#RedisEnable=true#g' hanayo.conf
 sed -E -i -e 'H;1h;$!d;x' hanayo.conf -e 's#DSN=#DSN='$mysql_usr':'$mysql_psw'@/realm#'
 sed -E -i -e 'H;1h;$!d;x' hanayo.conf -e 's#API=#API=http://localhost:40001/api/v1/#'
-cd $MasterDir
-echo "Hanayo setup is done!"
+cd /root/realm
+echo -e "\e[1;36mHanayo is now set up!"
+echo -e "\e[\033[0m"
+sleep 1
 
-echo "Setting up API..."
+echo -e "\e[1;36mSetting up API..."
+echo -e "\e[\033[0m"
+sleep 1
 git clone https://github.com/Adobeosu/api
 cd api
+chmod +x api
 ./api
 sed -i 's#root@#'$mysql_usr':'$mysql_psw'@#g; s#Potato#'$hanayo_apisecret'#g; s#OsuAPIKey=#OsuAPIKey='$peppy_cikey'#g' api.conf
-cd $MasterDir
-echo "API setup is done!"
+cd /root/realm
+echo -e "\e[1;36mAPI setup is done..."
+echo -e "\e[\033[0m"
+sleep 1
 
-echo "Setting up avatar server..."
+echo -e "\e[1;36mSetting up avatar serner..."
+echo -e "\e[\033[0m"
+sleep 1
 git clone https://github.com/theosurealm/avatar-server
 python3.6 -m pip install Flask
-echo "Avatar Server setup is done!"
+echo -e "\e[1;36mAvatar Server is now set up!"
+echo -e "\e[\033[0m"
+sleep 1
 
-echo "Setting up backend..."
+echo -e "\e[1;36mSetting up Admin Panel..."
+echo -e "\e[\033[0m"
+sleep 1
 cd /var/www
 git clone https://github.com/osuthailand/old-frontend
 mv old-frontend osu.ppy.sh
@@ -212,24 +251,36 @@ composer install
 rm -rf secret
 git clone https://github.com/osufx/secret.git
 cd $MasterDir
-echo "Backend server is done!"
+echo -e "\e[1;36mAdmin panel is now set up!"
+echo -e "\e[\033[0m"
+sleep 1
 
-echo "Setting up PhpMyAdmin..."
+echo -e "\e[1;36mInstalling PhpMyAdmin..."
+echo -e "\e[\033[0m"
+sleep 1
 apt-get install phpmyadmin -y
 cd /var/www/osu.ppy.sh
 ln -s /usr/share/phpmyadmin phpmyadmin
-echo "PhpMyAdmin setup is done!"
+echo -e "\e[1;36mPhpMyAdmin is now set up!"
+echo -e "\e[\033[0m"
+sleep 1
 
-echo "Making up certificate for SSL"
+echo -e "\e[1;36mMaking certificates for SSL..."
+echo -e "\e[\033[0m"
+sleep 1
 cd /root/
 git clone https://github.com/Neilpang/acme.sh
 apt-get install socat -y
 cd acme.sh/
 ./acme.sh --install
 ./acme.sh --issue --standalone -d $domain -d c.$domain -d i.$domain -d a.$domain -d s.$domain -d old.$domain
-echo "Certificate is ready!"
+echo -e "\e[1;36mCertificates have been created!"
+echo -e "\e[\033[0m"
+sleep 1
 
-echo "Changing folder and files permissions"
+echo -e "\e[1;36mGiving permissions to all files and folers...."
+echo -e "\e[\033[0m"
+sleep 1
 chmod +x ../realm
 
 END=$(date +%s)
