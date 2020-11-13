@@ -16,7 +16,7 @@ printf "\nMain domain name: "
 read domain
 
 if [ "$domain" = "" ]; then
-	printf "\n\nYou need to specify the main domain. Example: theosurealm.tk"
+	printf "\n\nYou need to specify the main domain. Example: realm.so"
 else
 	printf "\n\nFrontend: $domain"
 	printf "\nBancho: c.$domain"
