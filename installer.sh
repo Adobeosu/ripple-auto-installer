@@ -192,14 +192,12 @@ echo -e "\e[\033[0m"
 sleep 1
 go get -u github.com/osuthailand/hanayo
 rm -rf hanayo
-cd /root/go/src/osuthailand
+cd /root/go/src/github.com/osuthailand
 rm -rf hanayo
 cd /root/realm/
 git clone https://github.com/osuthailand/hanayo
-mv hanayo /root/go/src/osuthailand
-cd /root/go/src/osuthailand/hanayo
-dep init
-dep ensure
+mv hanayo /root/go/src/github.com/osuthailand
+cd /root/go/src/github.com/osuthailand/hanayo
 go build
 cd ..
 mv hanayo /root/realm
