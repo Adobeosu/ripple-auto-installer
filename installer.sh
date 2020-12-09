@@ -91,7 +91,7 @@ echo -e "\e[1;36mDownloading Bancho server..."
 echo -e "\e[\033[0m"
 sleep 1
 cd /root/realm/
-git clone https://github.com/theosurealm/pep.py
+git clone https://github.com/osuthailand/pep.py
 cd pep.py
 git submodule init && git submodule update
 python3.6 -m pip install -r requirements.txt
@@ -106,12 +106,13 @@ sleep 1
 echo -e "\e[1;36mSetting up LETS..."
 echo -e "\e[\033[0m"
 sleep 1
-git clone https://github.com/theosurealm/LETS
+git clone https://github.com/Kanaze-chan/LETS
 cd LETS
 python3.6 -m pip install -r requirements.txt
 git submodule init && git submodule update
 echo -e "\e[1;36mDownloading Patches"
 echo -e "\e[\033[0m"
+sleep 1
 cd /root/realm/LETS/pp
 rm -rf oppai-ng
 rm -rf oppai-rx
@@ -194,7 +195,7 @@ rm -rf hanayo
 cd /root/go/src/osuthailand
 rm -rf hanayo
 cd /root/realm/
-git clone https://github.com/theosurealm/hanayo
+git clone https://github.com/osuthailand/hanayo
 mv hanayo /root/go/src/osuthailand
 cd /root/go/src/osuthailand/hanayo
 dep init
