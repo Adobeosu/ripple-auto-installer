@@ -91,7 +91,7 @@ echo -e "\e[1;36mDownloading Bancho server..."
 echo -e "\e[\033[0m"
 sleep 1
 cd /root/realm/
-git clone https://github.com/osuthailand/pep.py
+git clone https://github.com/theosurealm/pep.py
 cd pep.py
 git submodule init && git submodule update
 python3.6 -m pip install -r requirements.txt
