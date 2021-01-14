@@ -56,7 +56,8 @@ printf "\nPassword [meme]: "
 read mysql_psw
 mysql_psw=${mysql_psw:=meme}
 
-printf "\n\nAlright! Let's see what I can do here...\n\n"
+echo -e "\e[1;36mAlright! Let's see what I can do here...\n"
+echo -e "\e[\033[0m"
 
 START=$(date +%s)
 
