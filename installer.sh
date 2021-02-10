@@ -117,8 +117,8 @@ sleep 1
 cd /root/realm/LETS/pp
 rm -rf oppai-ng
 rm -rf oppai-rx
-git clone https://github.com/Adobeosu/oppai-ng
-git clone https://github.com/Adobeosu/oppai-rx
+git clone https://github.com/Airiuwu/oppai-ng
+git clone https://github.com/Airiuwu/oppai-rx
 cd oppai-ng
 chmod +x ./build
 ./build
@@ -182,7 +182,7 @@ sleep 1
 echo -e "\e[1;36mSetting up database"
 echo -e "\e[\033[0m"
 sleep 1
-wget -O ripple.sql https://raw.githubusercontent.com/Adobeosu/ripple-auto-installer/master/ripple.sql
+wget -O ripple.sql https://raw.githubusercontent.com/Airiuwu/ripple-auto-installer/master/ripple.sql
 mysql -u "$mysql_usr" -p"$mysql_psw" -e 'CREATE DATABASE realm;'
 mysql -u "$mysql_usr" -p"$mysql_psw" realm < ripple.sql
 echo -e "\e[1;36mDatabase is now set up!"
@@ -216,7 +216,7 @@ sleep 1
 echo -e "\e[1;36mSetting up API..."
 echo -e "\e[\033[0m"
 sleep 1
-git clone https://github.com/Adobeosu/api
+git clone https://github.com/Airiuwu/api
 cd api
 chmod +x api
 ./api
@@ -229,8 +229,8 @@ sleep 1
 echo -e "\e[1;36mSetting up avatar serner..."
 echo -e "\e[\033[0m"
 sleep 1
-git clone https://github.com/theosurealm/avatar-server
-python3.6 -m pip install Flask
+git clone https://github.com/theosurealm/AvatarServer
+python3.6 -m pip install -r requirements.txt
 echo -e "\e[1;36mAvatar Server is now set up!"
 echo -e "\e[\033[0m"
 sleep 1
