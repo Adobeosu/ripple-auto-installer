@@ -381,12 +381,6 @@ CREATE TABLE `beatmaps` (
   `pp_98` int(11) NOT NULL DEFAULT '0',
   `pp_95` int(11) NOT NULL DEFAULT '0',
   `disable_pp` tinyint(4) NOT NULL DEFAULT '0',
-  `artist` text NOT NULL,
-  `creator` text NOT NULL,
-  `title` text NOT NULL,
-  `version` text NOT NULL,
-  `cs` int(11) NOT NULL,
-  `hp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
