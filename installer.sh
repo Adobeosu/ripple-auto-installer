@@ -92,7 +92,7 @@ echo -e "\e[1;36mDownloading Bancho server..."
 echo -e "\e[\033[0m"
 sleep 1
 cd /root/realm/
-git clone https://github.com/theosurealm/pep.py
+git clone https://github.com/e2z/pep.py
 cd pep.py
 git submodule init && git submodule update
 python3.6 -m pip install -r requirements.txt
@@ -107,7 +107,7 @@ sleep 1
 echo -e "\e[1;36mSetting up LETS..."
 echo -e "\e[\033[0m"
 sleep 1
-git clone https://github.com/Kanaze-chan/LETS
+git clone https://github.com/e2z/LETS
 cd LETS
 python3.6 -m pip install -r requirements.txt
 git submodule init && git submodule update
@@ -117,8 +117,8 @@ sleep 1
 cd /root/realm/LETS/pp
 rm -rf oppai-ng
 rm -rf oppai-rx
-git clone https://github.com/Airiuwu/oppai-ng
-git clone https://github.com/Airiuwu/oppai-rx
+git clone https://github.com/ez2/oppai-ng
+git clone https://github.com/ez2/oppai-rx
 cd oppai-ng
 chmod +x ./build
 ./build
@@ -191,12 +191,12 @@ echo -e "\e[\033[0m"
 echo -e "\e[1;36mSetting up hanayo..."
 echo -e "\e[\033[0m"
 sleep 1
-go get -u github.com/osuthailand/hanayo
+go get -u github.com/e2z/hanayo
 rm -rf hanayo
 cd /root/go/src/github.com/osuthailand
 rm -rf hanayo
 cd /root/realm/
-git clone https://github.com/osuthailand/hanayo
+git clone https://github.com/e2z/hanayo
 mv hanayo /root/go/src/github.com/osuthailand
 cd /root/go/src/github.com/osuthailand/hanayo
 go build
@@ -216,7 +216,7 @@ sleep 1
 echo -e "\e[1;36mSetting up API..."
 echo -e "\e[\033[0m"
 sleep 1
-git clone https://github.com/Airiuwu/api
+git clone https://github.com/ez2/api
 cd api
 chmod +x api
 ./api
@@ -229,7 +229,7 @@ sleep 1
 echo -e "\e[1;36mSetting up avatar serner..."
 echo -e "\e[\033[0m"
 sleep 1
-git clone https://github.com/theosurealm/AvatarServer
+git clone https://github.com/e2z/AvatarServer
 python3.6 -m pip install -r requirements.txt
 echo -e "\e[1;36mAvatar Server is now set up!"
 echo -e "\e[\033[0m"
