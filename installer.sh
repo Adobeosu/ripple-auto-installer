@@ -117,8 +117,8 @@ sleep 1
 cd /root/realm/LETS/pp
 rm -rf oppai-ng
 rm -rf oppai-rx
-git clone https://github.com/ez2/oppai-ng
-git clone https://github.com/ez2/oppai-rx
+git clone https://github.com/e2z/oppai-ng
+git clone https://github.com/e2z/oppai-rx
 cd oppai-ng
 chmod +x ./build
 ./build
@@ -216,7 +216,7 @@ sleep 1
 echo -e "\e[1;36mSetting up API..."
 echo -e "\e[\033[0m"
 sleep 1
-git clone https://github.com/ez2/api
+git clone https://github.com/e2z/api
 cd api
 chmod +x api
 ./api
