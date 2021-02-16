@@ -230,6 +230,7 @@ echo -e "\e[1;36mSetting up avatar serner..."
 echo -e "\e[\033[0m"
 sleep 1
 git clone https://github.com/e2z/AvatarServer
+cd AvatarServer
 python3.6 -m pip install -r requirements.txt
 echo -e "\e[1;36mAvatar Server is now set up!"
 echo -e "\e[\033[0m"
