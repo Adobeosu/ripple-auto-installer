@@ -1,6 +1,3 @@
-# ripple-auto-installer
-ripple server installer
-
 # Note
 This Installer just install most things for a ripple server! If you want to use a custom modification, You need to edit it yourself. and please fork this project if you use it! (THIS IS NOT DESIGNED FOR WINDOWS!)
 
