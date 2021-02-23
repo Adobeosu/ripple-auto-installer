@@ -831,6 +831,10 @@ CREATE TABLE `rx_stats` (
   `pp_mania` int(11) NOT NULL DEFAULT '0',
   `pp_ctb` int(11) NOT NULL DEFAULT '0',
   `pp_taiko` int(11) NOT NULL DEFAULT '0',
+  `replays_watched_std` int(11) NOT NULL DEFAULT '0',
+  `replays_watched_taiko` int(11) NOT NULL DEFAULT '0',
+  `replays_watched_ctb` int(11) NOT NULL DEFAULT '0',
+  `replays_watched_mania` int(11) NOT NULL DEFAULT '0',
   `country` char(2) NOT NULL DEFAULT 'XX',
   `unrestricted_pp` int(11) NOT NULL DEFAULT '0',
   `ppboard` int(11) NOT NULL DEFAULT '1'
