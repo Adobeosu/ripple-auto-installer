@@ -307,7 +307,7 @@ INSERT INTO `bancho_settings` (`id`, `name`, `value_int`, `value_string`) VALUES
 (3, 'menu_icon', 0, 'https://i.ppy.sh/logo.png | https://ripple.moe'),
 (4, 'login_messages', 1, ''),
 (5, 'restricted_joke', 0, 'You\'re banned from the server.'),
-(6, 'login_notification', 1, 'Welcome to Aya!'),
+(6, 'login_notification', 1, ''),
 (7, 'osu_versions', 0, ''),
 (8, 'osu_md5s', 0, '');
 
@@ -925,7 +925,7 @@ CREATE TABLE `system_settings` (
 INSERT INTO `system_settings` (`id`, `name`, `value_int`, `value_string`) VALUES
 (1, 'website_maintenance', 0, ''),
 (2, 'game_maintenance', 0, ''),
-(3, 'website_global_alert', 0, 'The website is still being worked on as well as custom graphics!'),
+(3, 'website_global_alert', 0, ''),
 (4, 'website_home_alert', 0, ''),
 (5, 'registrations_enabled', 1, ''),
 (6, 'ccreation_enabled', 1, '');
