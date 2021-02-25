@@ -73,7 +73,8 @@ add-apt-repository ppa:ondrej/php -y
 add-apt-repository ppa:longsleep/golang-backports -y
 apt-get update
 apt install git curl python3-pip python3-mysqldb -y
-apt-get install python-dev libmysqlclient-dev nginx software-properties-common libssl-dev mysql-server -y
+apt-get install python-dev libmysqlclient-dev nginx software-properties-common libssl-dev -y
+apt-get install mysql-server
 pip3 install --upgrade pip
 pip3 install flask
 apt install go-dep
