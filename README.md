@@ -29,6 +29,7 @@ You ask for help via Github Issues.<br>
 * <a href=https://github.com/osukawata>osu!Kawata</a> - <a href=https://github.com/r33int>@r33int</a> You're the best! TYSM for helping out <3
 * <a href=https://github.com/osuYozora>osu!Yozora</a> - wow man <a href=https://github.com/osuYozora>@osuYozora</a> Thanks for the past!
 * <a href=https://github.com/EmilySunpy>Sunpy</a> - You know her! Thanks for most commands and dependencies!
+* * <a href=https://github.com/osuthailand>osu!Ainu</a> - Thanks Ainu and Aoba for this~
 
 # License
 This project is licensed under the GNU AGPL 3 License.
