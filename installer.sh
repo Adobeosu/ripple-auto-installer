@@ -204,6 +204,8 @@ go build
 cd ..
 mv hanayo /root/realm
 cd /root/realm/hanayo
+go mod init github.com/e2z/hanayo && go mod vendor
+go build
 sed -i 's#ripple.moe#'$domain'#' templates/navbar.html
 ./hanayo
 sed -i 's#ListenTo=#ListenTo=127.0.0.1:'$hanayo_port'#g; s#AvatarURL=#AvatarURL=https://a.'$domain'#g; s#BaseURL=#BaseURL=https://'$domain'#g; s#APISecret=#APISecret='$hanayo_apisecret'#g; s#BanchoAPI=#BanchoAPI=https://c.'$domain'#g; s#MainRippleFolder=#MainRippleFolder='$MasterDir'#g; s#AvatarFolder=#AvatarFolder='$MasterDir'/nginx/avatar-server/avatars#g; s#RedisEnable=false#RedisEnable=true#g' hanayo.conf
