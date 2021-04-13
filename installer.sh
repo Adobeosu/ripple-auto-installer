@@ -216,6 +216,7 @@ mv hanayo /root/realm
 cd /root/realm/hanayo
 go mod init github.com/e2z/hanayo && go mod vendor
 go build
+sed -i 's#avatar-server#'AvatarServer'#' hanayo.conf
 sed -i 's#https://discord.gg/9PZBrNj#'$discord_server'#' hanayo.conf
 sed -i 's#ripple.moe#'$domain'#' templates/navbar.html
 sed -i 's#ainu!#'$server_name'#' templates/homepage.html
