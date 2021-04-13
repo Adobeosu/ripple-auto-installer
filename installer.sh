@@ -166,7 +166,7 @@ cd $MasterDir
 cd nginx
 wget -O nginx.conf https://pastebin.com/raw/yEwFiz7m
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' nginx.conf
-wget -O old-frontend.conf https://pastebin.com/raw/XTQvpWZM
+wget -O old-frontend.conf https://pastebin.com/raw/H0hmiGvH
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' old-frontend.conf
 echo -e "\e[1;36mDownloading Certificate..."
 echo -e "\e[\033[0m"
