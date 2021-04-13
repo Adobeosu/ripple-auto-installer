@@ -55,6 +55,14 @@ mysql_usr=${mysql_usr:=adobe}
 printf "\nPassword [meme]: "
 read mysql_psw
 mysql_psw=${mysql_psw:=meme}
+printf "\n\n..:: SERVER NAME ::.."
+printf "\nName Of Server [Realm]: "
+read server_name
+server_name=${server_name:=Realm}
+printf "\n\n..:: DISCORD SERVER ::.."
+printf "\nDiscord Server Link [https://discord.gg/WqNgFuNncj]:"
+read discord_server
+discord_server=${discord_server:=https://discord.gg/WqNgFuNncj}
 
 echo -e "\e[1;36mAlright! Let's see what I can do here...\n"
 echo -e "\e[\033[0m"
@@ -99,6 +107,8 @@ git submodule init && git submodule update
 python3.6 -m pip install -r requirements.txt
 python3.6 setup.py build_ext --inplace
 python3.6 pep.py
+sed -i 's#Ainu#'$server_name'#' objects/osuToken.py && sed -i 's#Ainu#'$server_name'#' objects/fokabot.py
+sed -i 's#Ainu#'$server_name'#' handlers/mainHandler.pyx
 sed -i 's#root#'$mysql_usr'#g; s#changeme#'$peppy_cikey'#g'; s#http://.../letsapi#'http://127.0.0.1:5002/letsapi'#g; s#http://cheesegu.ll/api#'https://storage.ainu.pw/api'#g' config.ini
 sed -E -i -e 'H;1h;$!d;x' config.ini -e 's#password = #password = '$mysql_psw'#'
 cd /root/realm/
@@ -166,7 +176,7 @@ cd $MasterDir
 cd nginx
 wget -O nginx.conf https://pastebin.com/raw/yEwFiz7m
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' nginx.conf
-wget -O old-frontend.conf https://pastebin.com/raw/WKe5bqfF
+wget -O old-frontend.conf https://pastebin.com/raw/9TZnZ2bs
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' old-frontend.conf
 echo -e "\e[1;36mDownloading Certificate..."
 echo -e "\e[\033[0m"
@@ -206,7 +216,11 @@ mv hanayo /root/realm
 cd /root/realm/hanayo
 go mod init github.com/e2z/hanayo && go mod vendor
 go build
+sed -i 's#https://discord.gg/9PZBrNj#'$discord_server'#' hanayo.conf
 sed -i 's#ripple.moe#'$domain'#' templates/navbar.html
+sed -i 's#ainu!#'$server_name'#' templates/homepage.html
+sed -i 's#Ainu#'$server_name'#' templates/base.html
+sed -i 's#Aoba#'Airi'#' templates/base.html
 ./hanayo
 sed -i 's#ListenTo=#ListenTo=127.0.0.1:'$hanayo_port'#g; s#AvatarURL=#AvatarURL=https://a.'$domain'#g; s#BaseURL=#BaseURL=https://'$domain'#g; s#APISecret=#APISecret='$hanayo_apisecret'#g; s#BanchoAPI=#BanchoAPI=https://c.'$domain'#g; s#MainRippleFolder=#MainRippleFolder='$MasterDir'#g; s#AvatarFolder=#AvatarFolder='$MasterDir'/nginx/avatar-server/avatars#g; s#RedisEnable=false#RedisEnable=true#g' hanayo.conf
 sed -E -i -e 'H;1h;$!d;x' hanayo.conf -e 's#DSN=#DSN='$mysql_usr':'$mysql_psw'@/realm#'
