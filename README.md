@@ -13,10 +13,9 @@ Make sure you set your DNS like this:
 
 * YOUR-DOMAIN
 * c.YOUR-DOMAIN
-* i.YOUR-DOMAIN
 * a.YOUR-DOMAIN
-* s.YOUR-DOMAIN
 * old.YOUR-DOMAIN
+* osu.YOUR-DOMAIN
 
 # I need help!
 You ask for help via Github Issues.<br>
