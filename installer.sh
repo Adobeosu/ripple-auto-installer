@@ -166,7 +166,7 @@ cd $MasterDir
 cd nginx
 wget -O nginx.conf https://pastebin.com/raw/yEwFiz7m
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' nginx.conf
-wget -O old-frontend.conf https://pastebin.com/raw/H0hmiGvH
+wget -O old-frontend.conf https://pastebin.com/raw/WKe5bqfF
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' old-frontend.conf
 echo -e "\e[1;36mDownloading Certificate..."
 echo -e "\e[\033[0m"
@@ -277,7 +277,7 @@ git clone https://github.com/Neilpang/acme.sh
 apt-get install socat -y
 cd acme.sh/
 ./acme.sh --install
-./acme.sh --issue --standalone -d $domain -d c.$domain -d i.$domain -d a.$domain -d s.$domain -d old.$domain
+./acme.sh --issue --standalone -d $domain -d c.$domain -d a.$domain -d old.$domain
 echo -e "\e[1;36mCertificates have been created!"
 echo -e "\e[\033[0m"
 sleep 1
