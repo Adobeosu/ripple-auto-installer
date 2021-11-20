@@ -292,7 +292,7 @@ git clone https://github.com/Neilpang/acme.sh
 apt-get install socat -y
 cd acme.sh/
 ./acme.sh --install
-./acme.sh --issue --standalone -d $domain -d c.$domain -d a.$domain -d old.$domain
+./acme.sh --issue --standalone -d $domain -d c.$domain -d a.$domain -d old.$domain -d osu.$domain
 echo -e "\e[1;36mCertificates have been created!"
 echo -e "\e[\033[0m"
 sleep 1
