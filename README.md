@@ -19,10 +19,10 @@ Make sure you set your DNS like this:
 
 Make sure you have a MySQL user already created before hand
 
-* mysql
-* CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
-* GRANT ALL PRIVILEGES ON * . * TO 'username'@'localhost';
-* FLUSH PRIVILEGES;
+* `mysql`
+* `CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';`
+* `GRANT ALL PRIVILEGES ON * . * TO 'username'@'localhost';`
+* `FLUSH PRIVILEGES;`
 
 # I need help!
 You ask for help via Github Issues.<br>
