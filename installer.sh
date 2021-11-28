@@ -100,7 +100,7 @@ mkdir realm
 echo -e "\e[1;36mDownloading Bancho server..."
 echo -e "\e[\033[0m"
 sleep 1
-cd /root/realm/
+cd realm
 git clone https://github.com/e2z/pep.py
 cd pep.py
 git submodule init && git submodule update
@@ -111,7 +111,7 @@ sed -i 's#Ainu#'$server_name'#' objects/osuToken.py && sed -i 's#Ainu#'$server_n
 sed -i 's#Ainu#'$server_name'#' handlers/mainHandler.pyx
 sed -i 's#root#'$mysql_usr'#g; s#changeme#'$peppy_cikey'#g'; s#http://.../letsapi#'http://127.0.0.1:5002/letsapi'#g; s#http://cheesegu.ll/api#'https://storage.ainu.pw/api'#g' config.ini
 sed -E -i -e 'H;1h;$!d;x' config.ini -e 's#password = #password = '$mysql_psw'#'
-cd /root/realm/
+cd ..
 echo "Bancho Server setup is done!"
 sleep 1
 
@@ -125,7 +125,7 @@ git submodule init && git submodule update
 echo -e "\e[1;36mDownloading Patches"
 echo -e "\e[\033[0m"
 sleep 1
-cd /root/realm/LETS/pp
+cd pp
 rm -rf oppai-ng
 rm -rf oppai-rx
 git clone https://github.com/e2z/oppai-ng
@@ -139,16 +139,16 @@ chmod +x ./build
 ./build
 cd ..
 cd ..
-cd /root/realm/LETS/objects
+cd objects
 sed -i 's#dataCtb["difficultyrating"]#'dataCtb["diff_aim"]'#g' beatmap.pyx
-cd /root/realm/LETS
+cd ..
 cd secret
 git submodule init && git submodule update
 cd ..
 python3.6 setup.py build_ext --inplace
 cd secret
 git submodule init && git submodule update
-cd /root/realm
+cd /root/realm/
 echo -e "\e[1;36mLETS setup is done!"
 echo -e "\e[\033[0m"
 sleep 1
@@ -172,7 +172,7 @@ cd /etc/nginx/
 rm -rf nginx.conf
 wget -O nginx.conf https://pastebin.com/raw/GYrNM3gV
 sed -i 's#include /root/realm/nginx/*.conf\*#include '$MasterDir'/nginx/*.conf#' /etc/nginx/nginx.conf
-cd $MasterDir
+cd /root/realm/
 cd nginx
 wget -O nginx.conf https://pastebin.com/raw/yEwFiz7m
 sed -i 's#DOMAIN#'$domain'#g; s#DIRECTORY#'$MasterDir'#g; s#6969#'$hanayo_port'#g' nginx.conf
@@ -204,12 +204,11 @@ echo -e "\e[\033[0m"
 sleep 1
 go get -u github.com/e2z/hanayo
 rm -rf hanayo
-cd /root/go/src/github.com/osuthailand
-rm -rf hanayo
-cd /root/realm/
 git clone https://github.com/e2z/hanayo
-mv hanayo /root/go/src/github.com/osuthailand
-cd /root/go/src/github.com/osuthailand/hanayo
+cd hanayo
+go mod init github.com/e2z/hanayo
+go mod tidy
+go mod vendor
 go build
 cd ..
 mv hanayo /root/realm
@@ -221,7 +220,7 @@ sed -i 's#https://discord.gg/9PZBrNj#'$discord_server'#' hanayo.conf
 sed -i 's#ripple.moe#'$domain'#' templates/navbar.html
 sed -i 's#ainu!#'$server_name'#' templates/homepage.html
 sed -i 's#Ainu#'$server_name'#' templates/base.html
-sed -i 's#Aoba#'Airi'#' templates/base.html
+sed -i 's#Aoba#'Adobe'#' templates/base.html
 ./hanayo
 sed -i 's#ListenTo=#ListenTo=127.0.0.1:'$hanayo_port'#g; s#AvatarURL=#AvatarURL=https://a.'$domain'#g; s#BaseURL=#BaseURL=https://'$domain'#g; s#APISecret=#APISecret='$hanayo_apisecret'#g; s#BanchoAPI=#BanchoAPI=https://c.'$domain'#g; s#MainRippleFolder=#MainRippleFolder='$MasterDir'#g; s#AvatarFolder=#AvatarFolder='$MasterDir'/nginx/avatar-server/avatars#g; s#RedisEnable=false#RedisEnable=true#g' hanayo.conf
 sed -E -i -e 'H;1h;$!d;x' hanayo.conf -e 's#DSN=#DSN='$mysql_usr':'$mysql_psw'@/realm#'
@@ -238,7 +237,7 @@ git clone https://github.com/e2z/api
 cd api
 chmod +x api
 ./api
-sed -i 's#root@#'$mysql_usr':'$mysql_psw'@#g; s#Potato#'$hanayo_apisecret'#g; s#OsuAPIKey=#OsuAPIKey='$peppy_cikey'#g' api.conf
+sed -i 's#root@#'$mysql_usr':'$mysql_psw'@/realm#g; s#Potato#'$hanayo_apisecret'#g; s#OsuAPIKey=#OsuAPIKey='$peppy_cikey'#g' api.conf
 cd /root/realm
 echo -e "\e[1;36mAPI setup is done..."
 echo -e "\e[\033[0m"
