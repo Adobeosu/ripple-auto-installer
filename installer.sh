@@ -63,7 +63,10 @@ printf "\n\n..:: DISCORD SERVER ::.."
 printf "\nDiscord Server Link [https://discord.gg/WqNgFuNncj]:"
 read discord_server
 discord_server=${discord_server:=https://discord.gg/WqNgFuNncj}
-
+printf "\n\n..:: CONTACT EMAIL ::.."
+printf "\nContact Email [adobe@ppy.gay]:"
+read contact_email
+contact_email=${contact_email:=adobe@ppy.gay]}
 echo -e "\e[1;36mAlright! Let's see what I can do here...\n"
 echo -e "\e[\033[0m"
 
@@ -291,6 +294,7 @@ git clone https://github.com/Neilpang/acme.sh
 apt-get install socat -y
 cd acme.sh/
 ./acme.sh --install
+./acme.sh --register-account -m $contact_email
 ./acme.sh --issue --standalone -d $domain -d c.$domain -d a.$domain -d old.$domain -d osu.$domain
 echo -e "\e[1;36mCertificates have been created!"
 echo -e "\e[\033[0m"
