@@ -22,6 +22,7 @@ else
 	printf "\nBancho: c.$domain"
 	printf "\nAvatar: a.$domain"
 	printf "\nBackend: old.$domain"
+ 	printf "\nosu!: osu.$domain"
 	printf "\n\nIs this configuration correct? [y/n]: "
 	read q
 	if [ "$q" = "y" ]; then
